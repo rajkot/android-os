@@ -1,0 +1,6 @@
+{
+  "name": "Android OS - Windows Desktop",
+  "description": "Windows desktop application clone of Android OS for multi-window Android mirroring, ADB control, gaming mappings, file manager, and system telemetry.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
