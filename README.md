@@ -42,5 +42,29 @@ npm run dev
 
 Open your browser at `http://localhost:3000/`.
 
+## Packaging Executables for All OS
+
+The project supports automated desktop packaging across Windows, macOS, and Linux:
+
+```bash
+# Build Windows NSIS Installer (.exe)
+npm run build:win
+
+# Build macOS Package (.dmg & .zip)
+npm run build:mac
+
+# Build Linux Package (.AppImage & .deb)
+npm run build:linux
+```
+
+Generated installer binaries are placed into the `release/` directory.
+
+## Automated Multi-OS GitHub Actions CI/CD
+
+Pre-configured workflows are located in [`.github/workflows/`](file:///.github/workflows/):
+- **[`build-all-os.yml`](file:///.github/workflows/build-all-os.yml)**: Matrix build automatically running on `windows-latest`, `macos-latest`, and `ubuntu-latest` on every push/PR to `main`, publishing downloadable artifacts for all platforms.
+- **[`release.yml`](file:///.github/workflows/release.yml)**: Automated multi-OS GitHub Releases whenever a version tag (`v*`) is pushed or manually triggered.
+
 ## License
 MIT
+

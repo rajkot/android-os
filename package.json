@@ -11,6 +11,9 @@
     "build": "vite build",
     "build:server": "esbuild src/server/adbBridge.ts --bundle --platform=node --format=cjs --outfile=electron/adbBridge.cjs --external:ws --external:express",
     "build:exe": "npm run build && npm run build:server && electron-builder --win nsis:x64",
+    "build:win": "npm run build && npm run build:server && electron-builder --win",
+    "build:mac": "npm run build && npm run build:server && electron-builder --mac",
+    "build:linux": "npm run build && npm run build:server && electron-builder --linux",
     "preview": "vite preview",
     "clean": "node -e \"fs.rmSync('dist', {recursive: true, force: true})\"",
     "lint": "tsc --noEmit"
@@ -61,6 +64,22 @@
         }
       ],
       "icon": "public/icon.ico"
+    },
+    "mac": {
+      "target": [
+        "dmg",
+        "zip"
+      ],
+      "icon": "public/assets/dex/app_png.png",
+      "category": "public.app-category.utilities"
+    },
+    "linux": {
+      "target": [
+        "AppImage",
+        "deb"
+      ],
+      "icon": "public/assets/dex/app_png.png",
+      "category": "Utility"
     },
     "nsis": {
       "oneClick": false,

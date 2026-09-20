@@ -1,0 +1,72 @@
+name: Build All OS (Windows, macOS, Linux)
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    name: Build on ${{ matrix.os }} (${{ matrix.platform }})
+    runs-on: ${{ matrix.os }}
+
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - os: windows-latest
+            platform: win
+            build-script: npm run build:win
+            artifact-name: Windows-Installer-EXE
+            artifact-pattern: release/*.exe
+          - os: macos-latest
+            platform: mac
+            build-script: npm run build:mac
+            artifact-name: macOS-DMG-ZIP
+            artifact-pattern: release/*.dmg
+          - os: ubuntu-latest
+            platform: linux
+            build-script: npm run build:linux
+            artifact-name: Linux-AppImage-DEB
+            artifact-pattern: release/*.AppImage
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: 'npm'
+
+      - name: Install Linux Build Dependencies
+        if: runner.os == 'Linux'
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends libarchive-tools libfuse2
+
+      - name: Install npm dependencies
+        run: npm install
+
+      - name: Build Desktop Application & Installer (${{ matrix.platform }})
+        run: ${{ matrix.build-script }}
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Upload Build Artifacts (${{ matrix.platform }})
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ matrix.artifact-name }}
+          path: |
+            release/*.exe
+            release/*.dmg
+            release/*.zip
+            release/*.AppImage
+            release/*.deb
+          if-no-files-found: warn
