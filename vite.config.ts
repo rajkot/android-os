@@ -157,7 +157,7 @@ export default defineConfig(() => {
       hmr: process.env.DISABLE_HMR !== 'true',
       // Disable file watching when DISABLE_HMR is true to save CPU during agent edits.
       watch: process.env.DISABLE_HMR === 'true' ? null : {
-        ignored: ['**/flutter_reference/**', '**/flutter_reference/build/**', '**/dist/**'],
+        ignored: ['**/flutter_reference/**', '**/flutter_reference/build/**', '**/dist/**', '**/release/**', '**/electron/**'],
       },
     },
   };

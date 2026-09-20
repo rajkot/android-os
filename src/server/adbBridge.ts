@@ -1,10 +1,6 @@
 import { exec, spawn } from 'child_process';
 import type { IncomingMessage, ServerResponse } from 'http';
 import path from 'path';
-import { fileURLToPath } from 'url';
-
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
 
 // Memory cache for app icons
 const iconCache = new Map<string, Buffer>();
