@@ -84,7 +84,6 @@
       "icon": "public/assets/dex/app_png.png",
       "category": "Utility",
       "maintainer": "rajkot <athanu000@gmail.com>",
-      "desktopName": "android-os.desktop",
       "syncDesktopName": true
     },
     "nsis": {
