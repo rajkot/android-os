@@ -3,17 +3,20 @@
   "private": true,
   "version": "1.0.0",
   "description": "Android OS - Universal Desktop Client for Android",
-  "author": "rajkot",
+  "author": {
+    "name": "rajkot",
+    "email": "athanu000@gmail.com"
+  },
   "main": "electron/main.cjs",
   "type": "module",
   "scripts": {
     "dev": "vite --port=3000 --host=0.0.0.0",
     "build": "vite build",
     "build:server": "esbuild src/server/adbBridge.ts --bundle --platform=node --format=cjs --outfile=electron/adbBridge.cjs --external:ws --external:express",
-    "build:exe": "npm run build && npm run build:server && electron-builder --win nsis:x64",
-    "build:win": "npm run build && npm run build:server && electron-builder --win",
-    "build:mac": "npm run build && npm run build:server && electron-builder --mac",
-    "build:linux": "npm run build && npm run build:server && electron-builder --linux",
+    "build:exe": "npm run build && npm run build:server && electron-builder --win nsis:x64 --publish never",
+    "build:win": "npm run build && npm run build:server && electron-builder --win --publish never",
+    "build:mac": "npm run build && npm run build:server && electron-builder --mac --publish never",
+    "build:linux": "npm run build && npm run build:server && electron-builder --linux --publish never",
     "preview": "vite preview",
     "clean": "node -e \"fs.rmSync('dist', {recursive: true, force: true})\"",
     "lint": "tsc --noEmit"
@@ -79,7 +82,10 @@
         "deb"
       ],
       "icon": "public/assets/dex/app_png.png",
-      "category": "Utility"
+      "category": "Utility",
+      "maintainer": "rajkot <athanu000@gmail.com>",
+      "desktopName": "android-os.desktop",
+      "syncDesktopName": true
     },
     "nsis": {
       "oneClick": false,
